@@ -1,4 +1,4 @@
-package com.example.todonote_littleapp
+package com.littleapp.todonote
 
 import org.junit.Test
 

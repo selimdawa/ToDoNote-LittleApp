@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ToDo Note - LittleApp</string>
+
+    //Theme
+    <string name="basic_theme">Basic Theme</string>
+    <string name="sec_theme">Sec Theme</string>
 </resources>
