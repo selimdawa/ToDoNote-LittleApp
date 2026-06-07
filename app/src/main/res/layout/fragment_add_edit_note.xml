@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?colorOnBackground">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            style="@style/Base.Widget.MaterialComponents.TextInputLayout.style"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="10dp"
+            android:hint="Content"
+            android:lines="15"
+            android:textAlignment="textStart"
+            android:textColor="?colorError"
+            android:textColorHint="?colorError"
+            app:boxStrokeColor="?colorError"
+            app:boxStrokeWidth="2sp"
+            app:hintTextColor="?colorError"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+            app:suffixTextColor="?colorError"
+            tools:layout_editor_absoluteX="9dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/noteContentEditText"
+                android:layout_width="match_parent"
+                android:layout_height="263dp"
+                android:fontFamily="@font/asapcondensed"
+                android:gravity="start"
+                android:maxLines="15"
+                android:textAlignment="textStart"
+                android:textColor="?colorError" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            style="@style/Base.Widget.MaterialComponents.TextInputLayout.style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="5dp"
+            android:hint="Title"
+            android:textColor="?colorError"
+            android:textColorHint="?colorError"
+            app:boxStrokeColor="?colorError"
+            app:boxStrokeWidth="2sp"
+            app:hintTextColor="?colorError"
+            app:layout_constraintTop_toTopOf="parent"
+            app:suffixTextColor="?colorError"
+            tools:layout_editor_absoluteX="9dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/noteTitleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/asapcondensed"
+                android:textColor="?colorError" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_baseline_date_range_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+            app:tint="?colorError" />
+
+        <TextView
+            android:id="@+id/currentDateNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/asapcondensed"
+            android:gravity="start"
+            android:textColor="?colorError"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/noteAddEditFloatBttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:contentDescription="TODO"
+            android:foreground="@drawable/check_float_bg"
+            android:tint="@null"
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.littleapp.todonote.Unit.THEME
 import com.littleapp.todonote.Unit.VOID
 import com.littleapp.todonote.databinding.ActivitySplashBinding
-import com.littleapp.todonote.CLASS
+import com.littleapp.todonote.Unit.CLASS
 
 class SplashActivity : AppCompatActivity() {
 
