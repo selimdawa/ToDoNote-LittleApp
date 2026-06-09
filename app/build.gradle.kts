@@ -85,4 +85,5 @@ dependencies {
     //Needed
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.jakewharton.timber)
+    ksp(libs.kotlin.metadata.jvm)
 }
