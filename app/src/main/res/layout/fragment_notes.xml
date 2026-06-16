@@ -18,12 +18,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="25sp"
+            android:backgroundTint="?colorOnBackground"
             android:contentDescription="TODO"
             android:foreground="@drawable/float_bg"
+            android:outlineSpotShadowColor="@color/white"
             android:tint="@null"
             app:backgroundTint="@null"
             app:layout_constraintBottom_toBottomOf="@+id/notes_rec"
-            app:layout_constraintEnd_toEndOf="@+id/notes_rec" />
+            app:layout_constraintEnd_toEndOf="@+id/notes_rec"
+            app:rippleColor="?colorOnBackground" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,15 +5,17 @@
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_baseline_search_24"
-        android:iconTint="@color/white"
+        android:iconTint="?colorOnBackground"
         android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:iconTint="?colorOnBackground"
         app:showAsAction="always|collapseActionView" />
 
     <item
         android:icon="@drawable/ic_baseline_sort_24"
-        android:iconTint="@color/white"
+        android:iconTint="?colorOnBackground"
         android:title="Sort"
+        app:iconTint="?colorOnBackground"
         app:showAsAction="always">
 
         <menu>
@@ -28,13 +30,25 @@
     </item>
 
     <item
-        android:id="@+id/action_hide_cpmpleted_items"
-        android:checkable="true"
-        android:title="Hide completed"
-        app:showAsAction="never" />
+        android:id="@+id/action_more_options"
+        android:icon="@drawable/ic_more"
+        android:iconTint="?colorOnBackground"
+        android:title="More"
+        app:iconTint="?colorOnBackground"
+        app:showAsAction="always">
 
-    <item
-        android:id="@+id/action_delete_all_comp_tasks"
-        android:title="Delete cmpleted tasks "
-        app:showAsAction="never" />
+        <menu>
+            <item
+                android:id="@+id/action_hide_cpmpleted_items"
+                android:checkable="true"
+                android:title="Hide completed"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_delete_all_comp_tasks"
+                android:title="Delete cmpleted tasks "
+                app:showAsAction="never" />
+        </menu>
+    </item>
+
 </menu>

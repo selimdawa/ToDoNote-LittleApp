@@ -13,23 +13,16 @@
         <item name="colorOnBackground">@color/white</item>
         <item name="colorError">@color/dark</item>
         <item name="colorOnError">@color/basic_2</item>
+
+        <item name="toolbarStyle">@style/Widget.MyApp.Toolbar</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.MyApp.Toolbar</item>
+        <item name="drawerArrowStyle">@style/Widget.MyApp.DrawerArrowStyle</item>
+        <!--
+               <item name="android:navigationBarColor">@color/basic_2</item>
+               <item name="android:windowLightNavigationBar">true</item> -->
     </style>
 
     <style name="Theme.MainApp" parent="Base.Theme.MainApp" />
-
-    <style name="backgroundColor">
-        <item name="android:background">#F1F8E9</item>
-    </style>
-
-    <style name="Floating" parent="Widget.Design.FloatingActionButton">
-        <!---rest of your style-->
-        <item name="android:foreground">@drawable/float_bg</item>
-    </style>
-
-    <style name="Floating2" parent="Widget.Design.FloatingActionButton">
-        <!---rest of your style-->
-        <item name="android:foreground">@drawable/check_float_bg</item>
-    </style>
 
     <style name="Base.Widget.MaterialComponents.TextInputLayout.style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:textColorHint">#05A1AD</item>
@@ -41,9 +34,28 @@
         <item name="boxCornerRadiusTopStart">10dp</item>
     </style>
 
-    <style name="textview.style" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/gray</item>
-        <item name="android:fontFamily">@font/asapcondensed</item>
+    <!-- Define the checkbox specific theme override -->
+    <style name="Widget.App.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <!-- Color when checked -->
+        <item name="colorPrimary">@color/basic_2</item>
+    </style>
+
+    <style name="Widget.MyApp.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/basic_2</item>
+    </style>
+
+    <style name="ThemeOverlay.MyApp.Toolbar" parent="ThemeOverlay.Material3.ActionBar">
+        <item name="titleTextColor">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="editTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+
+    <style name="Widget.MyApp.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/white</item>
     </style>
 
 </resources>

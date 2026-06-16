@@ -24,13 +24,13 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="5dp"
                 android:hint="Task"
+                android:textColor="?colorError"
+                android:textColorHint="?colorError"
                 app:boxStrokeColor="?colorError"
                 app:boxStrokeWidth="2sp"
                 app:hintTextColor="?colorError"
-                app:suffixTextColor="?colorError"
-                android:textColor="?colorError"
-                android:textColorHint="?colorError"
                 app:layout_constraintTop_toTopOf="parent"
+                app:suffixTextColor="?colorError"
                 tools:layout_editor_absoluteX="9dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -46,10 +46,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <CheckBox
-                    android:id="@+id/edit_task_check"
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/editTaskCheck"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:theme="@style/Widget.App.CheckBox" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -79,8 +81,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
+            android:backgroundTint="?colorOnBackground"
             android:foreground="@drawable/check_float_bg"
             android:src="@drawable/ic_baseline_check_24"
+            android:outlineSpotShadowColor="@color/white"
             android:tint="@null"
             app:backgroundTint="@null"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.littleapp.todonote.R
+import com.littleapp.todonote.Unit.THEME
 import com.littleapp.todonote.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

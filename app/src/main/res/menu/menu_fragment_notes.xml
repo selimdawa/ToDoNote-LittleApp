@@ -5,15 +5,17 @@
     <item
         android:id="@+id/action_search_notes"
         android:icon="@drawable/ic_baseline_search_24"
-        android:iconTint="@color/white"
+        android:iconTint="?colorOnBackground"
         android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:iconTint="?colorOnBackground"
         app:showAsAction="always|collapseActionView" />
 
     <item
         android:icon="@drawable/ic_baseline_sort_24"
-        android:iconTint="@color/white"
+        android:iconTint="?colorOnBackground"
         android:title="Sort"
+        app:iconTint="?colorOnBackground"
         app:showAsAction="always">
 
         <menu>
@@ -27,7 +29,18 @@
     </item>
 
     <item
-        android:id="@+id/action_delete_all_notes"
-        android:title="Delete All Notes "
-        app:showAsAction="never" />
+        android:id="@+id/action_more_options"
+        android:icon="@drawable/ic_more"
+        android:iconTint="?colorOnBackground"
+        android:title="More"
+        app:iconTint="?colorOnBackground"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/action_delete_all_notes"
+                android:title="Delete All Notes" />
+        </menu>
+    </item>
+
 </menu>
