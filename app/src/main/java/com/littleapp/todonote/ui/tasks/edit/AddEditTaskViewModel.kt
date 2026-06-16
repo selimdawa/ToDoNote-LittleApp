@@ -1,4 +1,4 @@
-package com.littleapp.todonote.ui.todo.tasks.edit
+package com.littleapp.todonote.ui.tasks.edit
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

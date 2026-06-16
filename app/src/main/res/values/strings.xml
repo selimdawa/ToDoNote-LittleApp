@@ -4,4 +4,23 @@
     //Theme
     <string name="basic_theme">Basic Theme</string>
     <string name="sec_theme">Sec Theme</string>
+    //Dialog
+    <string name="dialog_delete_title">Confirm Deletion</string>
+    <string name="dialog_delete_message_tasks">Are you sure you want to delete all completed tasks?</string>
+    <string name="dialog_delete_message_notes">Are you sure you want to delete all notes?</string>
+    <string name="dialog_btn_no">No</string>
+    <string name="dialog_btn_yes">Yes</string>
+    //Tasks
+    <string name="msg_task_added">Task Added</string>
+    <string name="msg_task_updated">Task updated</string>
+    <string name="msg_all_completed_tasks_deleted">All completed tasks deleted.</string>
+    <string name="msg_task_deleted">Task deleted</string>
+    <string name="action_undo">UNDO</string>
+    <string name="title_new_task">New Task</string>
+    <string name="title_edit_task">Edit Task</string>
+    //Notes
+    <string name="msg_note_added">Note added.</string>
+    <string name="msg_note_updated">Note updated.</string>
+    <string name="msg_all_notes_deleted">All notes deleted.</string>
+
 </resources>

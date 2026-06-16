@@ -1,4 +1,4 @@
-package com.littleapp.todonote.ui.todo.tasks
+package com.littleapp.todonote.ui.tasks
 
 import android.os.Bundle
 import android.view.Menu
@@ -8,9 +8,9 @@ import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,8 +28,11 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClickListener {
 
-    private val viewModel: TasksViewModel by viewModels()
-    private lateinit var searhView: SearchView
+    private val viewModel: TasksViewModel by navGraphViewModels(R.id.nav_graph) {
+        defaultViewModelProviderFactory
+    }
+
+    private lateinit var searchView: SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentTasksBinding.bind(view)
@@ -51,9 +54,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder,
                     target: RecyclerView.ViewHolder,
-                ): Boolean {
-                    return false
-                }
+                ): Boolean = false
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val task = taskAdapter.currentList[viewHolder.adapterPosition]
@@ -75,8 +76,12 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
             viewModel.taskEvent.collect { event ->
                 when (event) {
                     is TasksViewModel.TasksEvent.ShowUndoDeleteTaskMessage -> {
-                        Snackbar.make(requireView(), "Task deleted", Snackbar.LENGTH_SHORT)
-                            .setAction("UNDO") {
+                        Snackbar.make(
+                            requireView(),
+                            getString(R.string.msg_task_deleted),
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .setAction(getString(R.string.action_undo)) {
                                 viewModel.onUndoDeleteClick(event.task)
                             }.show()
                     }
@@ -84,7 +89,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                     is TasksViewModel.TasksEvent.NavigateToAddScreen -> {
                         val action =
                             TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
-                                "New Task", null
+                                task = null, title = getString(R.string.title_new_task)
                             )
                         findNavController().navigate(action)
                     }
@@ -92,7 +97,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                     is TasksViewModel.TasksEvent.NavigateToEditTaskScreen -> {
                         val action =
                             TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
-                                "Edit Task", event.task
+                                task = event.task, title = getString(R.string.title_edit_task)
                             )
                         findNavController().navigate(action)
                     }
@@ -125,14 +130,14 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
         inflater.inflate(R.menu.menu_fragment_tasks, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
-        searhView = searchItem.actionView as SearchView
+        searchView = searchItem.actionView as SearchView
 
-        searhView.onQueryTextChanged { viewModel.searchQuery.value = it }
+        searchView.onQueryTextChanged { viewModel.searchQuery.value = it }
 
         val pendingQuery = viewModel.searchQuery.value
-        if (pendingQuery != null && pendingQuery.isNotEmpty()) {
+        if (!pendingQuery.isNullOrEmpty()) {
             searchItem.expandActionView()
-            searhView.setQuery(pendingQuery, false)
+            searchView.setQuery(pendingQuery, false)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -143,7 +148,9 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
 
     override fun onDestroyView() {
         super.onDestroyView()
-        searhView.setOnQueryTextListener(null)
+        if (::searchView.isInitialized) {
+            searchView.setOnQueryTextListener(null)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -165,7 +172,9 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
             }
 
             R.id.action_delete_all_comp_tasks -> {
-                viewModel.deleteAllCompletedTasksClick()
+                val action =
+                    TasksFragmentDirections.actionGlobalDeleteAllCompletedTasksDialogFragment()
+                findNavController().navigate(action)
                 true
             }
 

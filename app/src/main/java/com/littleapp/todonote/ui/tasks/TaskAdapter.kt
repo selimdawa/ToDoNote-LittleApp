@@ -1,4 +1,4 @@
-package com.littleapp.todonote.ui.todo.tasks
+package com.littleapp.todonote.ui.tasks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

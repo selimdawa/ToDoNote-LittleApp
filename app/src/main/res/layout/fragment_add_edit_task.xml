@@ -84,7 +84,7 @@
             android:backgroundTint="?colorOnBackground"
             android:foreground="@drawable/check_float_bg"
             android:src="@drawable/ic_baseline_check_24"
-            android:outlineSpotShadowColor="@color/white"
+            android:outlineSpotShadowColor="?colorOnBackground"
             android:tint="@null"
             app:backgroundTint="@null"
             app:layout_constraintBottom_toBottomOf="parent"

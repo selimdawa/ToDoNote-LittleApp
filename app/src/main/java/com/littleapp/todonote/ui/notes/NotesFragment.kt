@@ -1,18 +1,16 @@
 package com.littleapp.todonote.ui.notes
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.littleapp.todonote.R
@@ -26,15 +24,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClickListener {
 
-    private val viewModel: NotesViewModel by viewModels()
-    private lateinit var searchView: SearchView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.fragment_notes, container, false)
+    private val viewModel: NotesViewModel by navGraphViewModels(R.id.nav_graph) {
+        defaultViewModelProviderFactory
     }
+
+    private lateinit var searchView: SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentNotesBinding.bind(view)
@@ -50,12 +44,14 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
             floatAddButton.setOnClickListener { viewModel.onAddNewNoteClick() }
 
             setFragmentResultListener("note_add_edit_request") { _, bundle ->
-                val result = bundle.getInt("note_add_edit_request")
+                val result = bundle.getInt("note_add_edit_result")
                 viewModel.onAddEditNoteResult(result)
             }
         }
 
-        viewModel.notes.observe(viewLifecycleOwner) { notesAdapter.differ.submitList(it) }
+        viewModel.notes.observe(viewLifecycleOwner) {
+            notesAdapter.differ.submitList(it)
+        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.noteEvent.collect { event ->
@@ -63,7 +59,7 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
                     is NotesViewModel.NotesEvent.NavigateToAddScreen -> {
                         val action =
                             NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
-                                "New Note", null
+                                title = "New Note", Note = null
                             )
                         findNavController().navigate(action)
                     }
@@ -71,7 +67,7 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
                     is NotesViewModel.NotesEvent.NavigateToEditNoteScreen -> {
                         val action =
                             NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
-                                "Edit Note", event.note
+                                title = "Edit Note", Note = event.note
                             )
                         findNavController().navigate(action)
                     }
@@ -91,10 +87,9 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
                         val action = NotesFragmentDirections.actionGlobalDeleteAllNotes()
                         findNavController().navigate(action)
                     }
-                }
-
+                }.exhaustive
             }
-        }.exhaustive
+        }
 
         setHasOptionsMenu(true)
     }
@@ -116,7 +111,7 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
         searchView.onQueryTextChanged { viewModel.searchQuery.value = it }
 
         val pendingQuery = viewModel.searchQuery.value
-        if (pendingQuery != null && pendingQuery.isNotEmpty()) {
+        if (!pendingQuery.isNullOrEmpty()) {
             searchItem.expandActionView()
             searchView.setQuery(pendingQuery, false)
         }
@@ -124,7 +119,9 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
 
     override fun onDestroyView() {
         super.onDestroyView()
-        searchView.setOnQueryTextListener(null)
+        if (::searchView.isInitialized) {
+            searchView.setOnQueryTextListener(null)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
