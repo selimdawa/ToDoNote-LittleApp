@@ -18,7 +18,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
-                style="@style/Base.Widget.MaterialComponents.TextInputLayout.style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -26,8 +25,9 @@
                 android:hint="Task"
                 android:textColor="?colorError"
                 android:textColorHint="?colorError"
-                app:boxStrokeColor="?colorError"
+                app:boxStrokeColor="@color/input_border_color"
                 app:boxStrokeWidth="2sp"
+                app:boxStrokeWidthFocused="2dp"
                 app:hintTextColor="?colorError"
                 app:layout_constraintTop_toTopOf="parent"
                 app:suffixTextColor="?colorError"
@@ -38,7 +38,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/asapcondensed"
-                    android:textColor="?colorError" />
+                    android:textColor="?colorError"
+                    android:textColorHint="?colorError" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,8 +84,8 @@
             android:layout_margin="25dp"
             android:backgroundTint="?colorOnBackground"
             android:foreground="@drawable/check_float_bg"
-            android:src="@drawable/ic_baseline_check_24"
             android:outlineSpotShadowColor="?colorOnBackground"
+            android:src="@drawable/ic_baseline_check_24"
             android:tint="@null"
             app:backgroundTint="@null"
             app:layout_constraintBottom_toBottomOf="parent"

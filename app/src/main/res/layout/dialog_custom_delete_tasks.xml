@@ -5,7 +5,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/basic_2"
+        android:background="?background"
         android:orientation="vertical"
         android:padding="24dp">
 
@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/dialog_delete_title"
-            android:textColor="@color/white"
+            android:textColor="?colorOnBackground"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:text="Confirm Deletion" />
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/dialog_delete_message_tasks"
-            android:textColor="@color/white"
+            android:textColor="?colorOnBackground"
             android:textSize="16sp"
             tools:text="Are you sure you want to delete all completed tasks?" />
 
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dialog_btn_no"
-                android:textColor="@color/white"
+                android:textColor="?colorOnBackground"
                 android:textSize="16sp"
                 tools:text="No" />
 
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@string/dialog_btn_yes"
-                android:textColor="@color/white"
+                android:textColor="?colorOnBackground"
                 android:textSize="16sp"
                 tools:text="Yes" />
 

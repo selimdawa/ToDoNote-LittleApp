@@ -24,16 +24,6 @@
 
     <style name="Theme.MainApp" parent="Base.Theme.MainApp" />
 
-    <style name="Base.Widget.MaterialComponents.TextInputLayout.style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:textColorHint">#05A1AD</item>
-        <item name="boxStrokeColor">#05A1AD</item>
-        <item name="colorOnContainer">#05A1AD</item>
-        <item name="boxCornerRadiusBottomStart">10dp</item>
-        <item name="boxCornerRadiusBottomEnd">10dp</item>
-        <item name="boxCornerRadiusTopEnd">10dp</item>
-        <item name="boxCornerRadiusTopStart">10dp</item>
-    </style>
-
     <!-- Define the checkbox specific theme override -->
     <style name="Widget.App.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
         <!-- Color when checked -->

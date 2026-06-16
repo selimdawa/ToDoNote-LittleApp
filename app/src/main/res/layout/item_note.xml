@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/asapcondensed"
-                android:textColor="@color/white"
+                android:textColor="?colorOnBackground"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
                 android:layout_marginVertical="5sp"
                 android:fontFamily="@font/asapcondensed"
                 android:lines="5"
-                android:textColor="@color/white"
+                android:textColor="?colorOnBackground"
                 android:textSize="14sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +48,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white" />
+                    app:tint="?colorOnBackground" />
 
                 <TextView
                     android:id="@+id/dateTextView"
@@ -57,9 +57,8 @@
                     android:layout_gravity="start"
                     android:layout_margin="5dp"
                     android:fontFamily="@font/asapcondensed"
-                    android:textColor="@color/white"
+                    android:textColor="?colorOnBackground"
                     android:textSize="12sp"
-                    android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/dateIcon" />
 
@@ -74,7 +73,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/dateTextView"
-                    app:tint="@color/white" />
+                    app:tint="?colorOnBackground" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
