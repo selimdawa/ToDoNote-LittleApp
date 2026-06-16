@@ -8,22 +8,22 @@
         android:background="?colorOnBackground">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/notes_recyc"
+            android:id="@+id/notes_rec"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="5sp"
-            android:layout_marginTop="10sp" />
+            android:layout_margin="15sp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatAddButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="25sp"
+            android:contentDescription="TODO"
             android:foreground="@drawable/float_bg"
             android:tint="@null"
             app:backgroundTint="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/notes_recyc"
-            app:layout_constraintEnd_toEndOf="@+id/notes_recyc" />
+            app:layout_constraintBottom_toBottomOf="@+id/notes_rec"
+            app:layout_constraintEnd_toEndOf="@+id/notes_rec" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

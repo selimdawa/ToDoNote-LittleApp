@@ -14,13 +14,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.littleapp.todonote.R
-import com.littleapp.todonote.databinding.FragmentTasksBinding
 import com.littleapp.todonote.data.SortOrder
 import com.littleapp.todonote.data.Task
+import com.littleapp.todonote.databinding.FragmentTasksBinding
 import com.littleapp.todonote.util.exhaustive
 import com.littleapp.todonote.util.onQueryTextChanged
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -36,7 +36,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
         val taskAdapter = TaskAdapter(this)
 
         binding.apply {
-            recyc.apply {
+            tasksRec.apply {
                 adapter = taskAdapter
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
@@ -59,7 +59,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                     val task = taskAdapter.currentList[viewHolder.adapterPosition]
                     viewModel.onTaskSwiped(task)
                 }
-            }).attachToRecyclerView(recyc)
+            }).attachToRecyclerView(tasksRec)
         }
 
         viewModel.tasks.observe(viewLifecycleOwner) {
@@ -80,6 +80,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                                 viewModel.onUndoDeleteClick(event.task)
                             }.show()
                     }
+
                     is TasksViewModel.TasksEvent.NavigateToAddScreen -> {
                         val action =
                             TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
@@ -87,6 +88,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                             )
                         findNavController().navigate(action)
                     }
+
                     is TasksViewModel.TasksEvent.NavigateToEditTaskScreen -> {
                         val action =
                             TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
@@ -94,9 +96,11 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                             )
                         findNavController().navigate(action)
                     }
+
                     is TasksViewModel.TasksEvent.ShowTaskSavedConfirmationMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
+
                     is TasksViewModel.TasksEvent.NavigateToDeleteAllCompletedTasksScreen -> {
                         val action =
                             TasksFragmentDirections.actionGlobalDeleteAllCompletedTasksDialogFragment()
@@ -148,19 +152,23 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                 viewModel.onSortOrderSelected(SortOrder.BY_NAME)
                 true
             }
+
             R.id.action_sort_bydatecreated -> {
                 viewModel.onSortOrderSelected(SortOrder.BY_DATE)
                 true
             }
+
             R.id.action_hide_cpmpleted_items -> {
                 item.isChecked = !item.isChecked
                 viewModel.onHideCompletedClick(item.isChecked)
                 true
             }
+
             R.id.action_delete_all_comp_tasks -> {
                 viewModel.deleteAllCompletedTasksClick()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

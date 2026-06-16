@@ -1,7 +1,12 @@
 package com.littleapp.todonote.ui.notes
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -9,13 +14,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.littleapp.todonote.R
-import com.littleapp.todonote.databinding.FragmentNotesBinding
 import com.littleapp.todonote.data.Notes
 import com.littleapp.todonote.data.SortOrder
+import com.littleapp.todonote.databinding.FragmentNotesBinding
 import com.littleapp.todonote.util.exhaustive
 import com.littleapp.todonote.util.onQueryTextChanged
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +41,7 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
         val notesAdapter = NotesAdapter(this)
 
         binding.apply {
-            notesRecyc.apply {
+            notesRec.apply {
                 adapter = notesAdapter
                 layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 setHasFixedSize(true)
@@ -58,28 +63,30 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
                     is NotesViewModel.NotesEvent.NavigateToAddScreen -> {
                         val action =
                             NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
-                                "New Note",
-                                null
+                                "New Note", null
                             )
                         findNavController().navigate(action)
                     }
+
                     is NotesViewModel.NotesEvent.NavigateToEditNoteScreen -> {
                         val action =
                             NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
-                                "Edit Note",
-                                event.note
+                                "Edit Note", event.note
                             )
                         findNavController().navigate(action)
                     }
+
                     is NotesViewModel.NotesEvent.ShowUndoDeleteNoteMessage -> {
                         Snackbar.make(requireView(), "Note Deleted", Snackbar.LENGTH_LONG)
                             .setAction("UNDO") {
                                 viewModel.onUndoDeleteClick(event.note)
                             }.show()
                     }
+
                     is NotesViewModel.NotesEvent.ShowNoteSavedConfirmationMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
+
                     is NotesViewModel.NotesEvent.NavigateToDeleteAllScreen -> {
                         val action = NotesFragmentDirections.actionGlobalDeleteAllNotes()
                         findNavController().navigate(action)
@@ -136,6 +143,7 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
                 viewModel.onSortOrderSelected(SortOrder.BY_DATE)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

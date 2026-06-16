@@ -7,9 +7,9 @@
         </shape>
     </item>
     <item
+        android:bottom="15dp"
         android:drawable="@drawable/ic_baseline_add_24"
-        android:top="15dp"
-        android:right="15dp"
         android:left="15dp"
-        android:bottom="15dp" />
+        android:right="15dp"
+        android:top="15dp" />
 </layer-list>

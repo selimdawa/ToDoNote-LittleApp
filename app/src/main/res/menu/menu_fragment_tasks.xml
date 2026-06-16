@@ -37,5 +37,4 @@
         android:id="@+id/action_delete_all_comp_tasks"
         android:title="Delete cmpleted tasks "
         app:showAsAction="never" />
-
 </menu>

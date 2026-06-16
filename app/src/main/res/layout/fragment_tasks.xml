@@ -6,22 +6,21 @@
     android:background="?colorOnBackground">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyc"
+        android:id="@+id/tasks_rec"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp" />
+        android:layout_margin="15sp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatAddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
+        android:layout_margin="25sp"
         android:contentDescription="TODO"
         android:foreground="@drawable/float_bg"
         android:tint="@null"
         app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/recyc"
-        app:layout_constraintEnd_toEndOf="@+id/recyc"
-        app:rippleColor="#000000" />
+        app:layout_constraintBottom_toBottomOf="@+id/tasks_rec"
+        app:layout_constraintEnd_toEndOf="@+id/tasks_rec" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
