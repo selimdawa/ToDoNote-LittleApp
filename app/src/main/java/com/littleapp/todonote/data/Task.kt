@@ -3,7 +3,7 @@ package com.littleapp.todonote.data
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.text.DateFormat
 
 @Entity(tableName = "task_table")

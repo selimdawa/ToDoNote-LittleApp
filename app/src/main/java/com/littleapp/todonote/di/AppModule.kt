@@ -21,7 +21,7 @@ object AppModule {
     @Singleton
     fun provideDatabase(app: Application, callBack: TaskDatabase.Callback) =
         Room.databaseBuilder(app, TaskDatabase::class.java, "task_database")
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .addCallback(callBack)
             .build()
 
@@ -33,7 +33,7 @@ object AppModule {
     fun provideNoteDatabase(
         app: Application,
     ) = Room.databaseBuilder(app, NoteDatabase::class.java, "note_database")
-        .fallbackToDestructiveMigration()
+        .fallbackToDestructiveMigration(dropAllTables = true)
         .build()
 
     @Provides

@@ -30,7 +30,7 @@ class NotesAdapter(
         init {
             binding.apply {
                 root.setOnClickListener {
-                    val position = adapterPosition
+                    val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val note = differ.currentList[position]
                         listener.onItemClick(note)
@@ -38,7 +38,7 @@ class NotesAdapter(
                 }
 
                 deleteNoteButton.setOnClickListener {
-                    val position = adapterPosition
+                    val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val note = differ.currentList[position]
                         listener.onDeleteNoteClick(note)

@@ -6,9 +6,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -20,6 +23,7 @@ import com.littleapp.todonote.databinding.FragmentNotesBinding
 import com.littleapp.todonote.util.exhaustive
 import com.littleapp.todonote.util.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClickListener {
@@ -28,7 +32,7 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
         defaultViewModelProviderFactory
     }
 
-    private lateinit var searchView: SearchView
+    private var searchView: SearchView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentNotesBinding.bind(view)
@@ -53,45 +57,88 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
             notesAdapter.differ.submitList(it)
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.noteEvent.collect { event ->
-                when (event) {
-                    is NotesViewModel.NotesEvent.NavigateToAddScreen -> {
-                        val action =
-                            NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
-                                title = "New Note", Note = null
-                            )
-                        findNavController().navigate(action)
-                    }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.noteEvent.collect { event ->
+                    when (event) {
+                        is NotesViewModel.NotesEvent.NavigateToAddScreen -> {
+                            val action =
+                                NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
+                                    title = "New Note", Note = null
+                                )
+                            findNavController().navigate(action)
+                        }
 
-                    is NotesViewModel.NotesEvent.NavigateToEditNoteScreen -> {
-                        val action =
-                            NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
-                                title = "Edit Note", Note = event.note
-                            )
-                        findNavController().navigate(action)
-                    }
+                        is NotesViewModel.NotesEvent.NavigateToEditNoteScreen -> {
+                            val action =
+                                NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
+                                    title = "Edit Note", Note = event.note
+                                )
+                            findNavController().navigate(action)
+                        }
 
-                    is NotesViewModel.NotesEvent.ShowUndoDeleteNoteMessage -> {
-                        Snackbar.make(requireView(), "Note Deleted", Snackbar.LENGTH_LONG)
-                            .setAction("UNDO") {
-                                viewModel.onUndoDeleteClick(event.note)
-                            }.show()
-                    }
+                        is NotesViewModel.NotesEvent.ShowUndoDeleteNoteMessage -> {
+                            Snackbar.make(requireView(), "Note Deleted", Snackbar.LENGTH_LONG)
+                                .setAction("UNDO") {
+                                    viewModel.onUndoDeleteClick(event.note)
+                                }.show()
+                        }
 
-                    is NotesViewModel.NotesEvent.ShowNoteSavedConfirmationMessage -> {
-                        Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
-                    }
+                        is NotesViewModel.NotesEvent.ShowNoteSavedConfirmationMessage -> {
+                            Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
+                        }
 
-                    is NotesViewModel.NotesEvent.NavigateToDeleteAllScreen -> {
-                        val action = NotesFragmentDirections.actionGlobalDeleteAllNotes()
-                        findNavController().navigate(action)
-                    }
-                }.exhaustive
+                        is NotesViewModel.NotesEvent.NavigateToDeleteAllScreen -> {
+                            val action = NotesFragmentDirections.actionGlobalDeleteAllNotes()
+                            findNavController().navigate(action)
+                        }
+                    }.exhaustive
+                }
             }
         }
 
-        setHasOptionsMenu(true)
+        setupMenu()
+    }
+
+    private fun setupMenu() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_fragment_notes, menu)
+
+                val searchItem = menu.findItem(R.id.action_search_notes)
+                val currentSearchView = searchItem.actionView as SearchView
+                searchView = currentSearchView
+
+                currentSearchView.onQueryTextChanged { viewModel.searchQuery.value = it }
+
+                val pendingQuery = viewModel.searchQuery.value
+                if (!pendingQuery.isNullOrEmpty()) {
+                    searchItem.expandActionView()
+                    currentSearchView.setQuery(pendingQuery, false)
+                }
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_delete_all_notes -> {
+                        viewModel.deleteAllNotes()
+                        true
+                    }
+
+                    R.id.action_sort_byname_notes -> {
+                        viewModel.onSortOrderSelected(SortOrder.BY_NAME)
+                        true
+                    }
+
+                    R.id.action_sort_bydatecreated_notes -> {
+                        viewModel.onSortOrderSelected(SortOrder.BY_DATE)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onItemClick(note: Notes) {
@@ -102,46 +149,9 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
         viewModel.deleteNote(note)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_fragment_notes, menu)
-
-        val searchItem = menu.findItem(R.id.action_search_notes)
-        searchView = searchItem.actionView as SearchView
-
-        searchView.onQueryTextChanged { viewModel.searchQuery.value = it }
-
-        val pendingQuery = viewModel.searchQuery.value
-        if (!pendingQuery.isNullOrEmpty()) {
-            searchItem.expandActionView()
-            searchView.setQuery(pendingQuery, false)
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        if (::searchView.isInitialized) {
-            searchView.setOnQueryTextListener(null)
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_delete_all_notes -> {
-                viewModel.deleteAllNotes()
-                true
-            }
-
-            R.id.action_sort_byname_notes -> {
-                viewModel.onSortOrderSelected(SortOrder.BY_NAME)
-                true
-            }
-
-            R.id.action_sort_bydatecreated_notes -> {
-                viewModel.onSortOrderSelected(SortOrder.BY_DATE)
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
+        searchView?.setOnQueryTextListener(null)
+        searchView = null
     }
 }

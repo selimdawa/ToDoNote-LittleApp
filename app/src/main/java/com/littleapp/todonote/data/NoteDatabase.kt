@@ -7,7 +7,7 @@ import com.littleapp.todonote.util.Converters
 
 @Database(entities = [Notes::class], version = 1)
 @TypeConverters(Converters::class)
-abstract class NoteDatabase :RoomDatabase() {
+abstract class NoteDatabase : RoomDatabase() {
 
     abstract fun notesDao(): NoteDao
 }

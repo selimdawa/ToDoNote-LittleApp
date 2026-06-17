@@ -19,7 +19,7 @@ class TaskAdapter(
         init {
             binding.apply {
                 root.setOnClickListener {
-                    val position = adapterPosition
+                    val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val task = getItem(position)
                         listener.onItemClick(task)
@@ -27,7 +27,7 @@ class TaskAdapter(
                 }
 
                 taskCheckBox.setOnClickListener {
-                    val position = adapterPosition
+                    val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val task = getItem(position)
                         listener.onChecBoxClick(task, taskCheckBox.isChecked)

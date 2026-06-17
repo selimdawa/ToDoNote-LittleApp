@@ -6,9 +6,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -57,7 +60,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                 ): Boolean = false
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val task = taskAdapter.currentList[viewHolder.adapterPosition]
+                    val task = taskAdapter.currentList[viewHolder.bindingAdapterPosition]
                     viewModel.onTaskSwiped(task)
                 }
             }).attachToRecyclerView(tasksRec)
@@ -72,50 +75,103 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
             viewModel.onAddEditResult(result)
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.taskEvent.collect { event ->
-                when (event) {
-                    is TasksViewModel.TasksEvent.ShowUndoDeleteTaskMessage -> {
-                        Snackbar.make(
-                            requireView(),
-                            getString(R.string.msg_task_deleted),
-                            Snackbar.LENGTH_SHORT
-                        )
-                            .setAction(getString(R.string.action_undo)) {
-                                viewModel.onUndoDeleteClick(event.task)
-                            }.show()
-                    }
-
-                    is TasksViewModel.TasksEvent.NavigateToAddScreen -> {
-                        val action =
-                            TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
-                                task = null, title = getString(R.string.title_new_task)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.taskEvent.collect { event ->
+                    when (event) {
+                        is TasksViewModel.TasksEvent.ShowUndoDeleteTaskMessage -> {
+                            Snackbar.make(
+                                requireView(),
+                                getString(R.string.msg_task_deleted),
+                                Snackbar.LENGTH_SHORT
                             )
-                        findNavController().navigate(action)
-                    }
+                                .setAction(getString(R.string.action_undo)) {
+                                    viewModel.onUndoDeleteClick(event.task)
+                                }.show()
+                        }
 
-                    is TasksViewModel.TasksEvent.NavigateToEditTaskScreen -> {
-                        val action =
-                            TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
-                                task = event.task, title = getString(R.string.title_edit_task)
-                            )
-                        findNavController().navigate(action)
-                    }
+                        is TasksViewModel.TasksEvent.NavigateToAddScreen -> {
+                            val action =
+                                TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
+                                    task = null, title = getString(R.string.title_new_task)
+                                )
+                            findNavController().navigate(action)
+                        }
 
-                    is TasksViewModel.TasksEvent.ShowTaskSavedConfirmationMessage -> {
-                        Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
-                    }
+                        is TasksViewModel.TasksEvent.NavigateToEditTaskScreen -> {
+                            val action =
+                                TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
+                                    task = event.task, title = getString(R.string.title_edit_task)
+                                )
+                            findNavController().navigate(action)
+                        }
 
-                    is TasksViewModel.TasksEvent.NavigateToDeleteAllCompletedTasksScreen -> {
-                        val action =
-                            TasksFragmentDirections.actionGlobalDeleteAllCompletedTasksDialogFragment()
-                        findNavController().navigate(action)
-                    }
-                }.exhaustive
+                        is TasksViewModel.TasksEvent.ShowTaskSavedConfirmationMessage -> {
+                            Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
+                        }
+
+                        is TasksViewModel.TasksEvent.NavigateToDeleteAllCompletedTasksScreen -> {
+                            val action =
+                                TasksFragmentDirections.actionGlobalDeleteAllCompletedTasksDialogFragment()
+                            findNavController().navigate(action)
+                        }
+                    }.exhaustive
+                }
             }
         }
 
-        setHasOptionsMenu(true)
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_fragment_tasks, menu)
+
+                val searchItem = menu.findItem(R.id.action_search)
+                searchView = searchItem.actionView as SearchView
+
+                searchView.onQueryTextChanged { viewModel.searchQuery.value = it }
+
+                val pendingQuery = viewModel.searchQuery.value
+                if (!pendingQuery.isNullOrEmpty()) {
+                    searchItem.expandActionView()
+                    searchView.setQuery(pendingQuery, false)
+                }
+
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        menu.findItem(R.id.action_hide_cpmpleted_items).isChecked =
+                            viewModel.preferencesFlow.first().hideCompleted
+                    }
+                }
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_sort_byname -> {
+                        viewModel.onSortOrderSelected(SortOrder.BY_NAME)
+                        true
+                    }
+
+                    R.id.action_sort_bydatecreated -> {
+                        viewModel.onSortOrderSelected(SortOrder.BY_DATE)
+                        true
+                    }
+
+                    R.id.action_hide_cpmpleted_items -> {
+                        menuItem.isChecked = !menuItem.isChecked
+                        viewModel.onHideCompletedClick(menuItem.isChecked)
+                        true
+                    }
+
+                    R.id.action_delete_all_comp_tasks -> {
+                        val action =
+                            TasksFragmentDirections.actionGlobalDeleteAllCompletedTasksDialogFragment()
+                        findNavController().navigate(action)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onItemClick(task: Task) {
@@ -126,59 +182,10 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
         viewModel.onTaskCheckedChanged(task, isChecked)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_fragment_tasks, menu)
-
-        val searchItem = menu.findItem(R.id.action_search)
-        searchView = searchItem.actionView as SearchView
-
-        searchView.onQueryTextChanged { viewModel.searchQuery.value = it }
-
-        val pendingQuery = viewModel.searchQuery.value
-        if (!pendingQuery.isNullOrEmpty()) {
-            searchItem.expandActionView()
-            searchView.setQuery(pendingQuery, false)
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            menu.findItem(R.id.action_hide_cpmpleted_items).isChecked =
-                viewModel.preferencesFlow.first().hideCompleted
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         if (::searchView.isInitialized) {
             searchView.setOnQueryTextListener(null)
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_sort_byname -> {
-                viewModel.onSortOrderSelected(SortOrder.BY_NAME)
-                true
-            }
-
-            R.id.action_sort_bydatecreated -> {
-                viewModel.onSortOrderSelected(SortOrder.BY_DATE)
-                true
-            }
-
-            R.id.action_hide_cpmpleted_items -> {
-                item.isChecked = !item.isChecked
-                viewModel.onHideCompletedClick(item.isChecked)
-                true
-            }
-
-            R.id.action_delete_all_comp_tasks -> {
-                val action =
-                    TasksFragmentDirections.actionGlobalDeleteAllCompletedTasksDialogFragment()
-                findNavController().navigate(action)
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
         }
     }
 }

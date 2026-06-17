@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.dagger.hilt.android)
@@ -9,9 +8,7 @@ plugins {
 
 android {
     namespace = "com.littleapp.todonote"
-    compileSdk {
-        version = release(37)
-    }
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.littleapp.todonote"
@@ -45,6 +42,9 @@ android {
         dataBinding = true
         viewBinding = true
     }
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 }
 
 dependencies {
@@ -59,8 +59,6 @@ dependencies {
     //Layout
     implementation(libs.androidx.constraintlayout)
     implementation(libs.material)
-    //implementation(libs.androidx.legacy.support.v4)
-    //implementation(libs.androidx.cardview)
     //Lifecycle + ViewModel & LiveData
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
@@ -81,7 +79,6 @@ dependencies {
     kspTest(libs.google.dagger.hilt.compiler)
     androidTestImplementation(libs.google.dagger.hilt.testing)
     kspAndroidTest(libs.google.dagger.hilt.compiler)
-    ksp(libs.androidx.hilt.compiler)
     //Needed
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.jakewharton.timber)

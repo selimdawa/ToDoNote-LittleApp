@@ -1,6 +1,5 @@
 [versions]
 agp = "9.2.1"
-cardview = "1.0.0"
 coreKtx = "1.19.0"
 kotlin = "2.4.0"
 junit = "4.13.2"
@@ -12,7 +11,6 @@ material = "1.14.0"
 activityKtx = "1.13.0"
 constraintlayout = "2.2.1"
 preferenceKtx = "1.2.1"
-legacySupportV4 = "1.0.0"
 fragmentKtx = "1.8.9"
 lifecycleViewModel = "2.10.0"
 lifecycleLiveData = "2.10.0"
@@ -20,15 +18,12 @@ navigation = "2.9.8"
 room = "2.8.4"
 coroutines = "1.11.0"
 hilt = "2.59.2"
-hiltCompiler = "1.3.0"
 datastore = "1.2.1"
 ksp = "2.3.8"
 timber = "5.0.1"
 
 [libraries]
-androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4" }
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -56,13 +51,11 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 google-dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 google-dagger-hilt-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
-androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltCompiler" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 jakewharton-timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 navigation-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
