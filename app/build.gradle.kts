@@ -73,13 +73,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     //Dagger - Hilt
-    implementation(libs.google.dagger.hilt.android)
-    ksp(libs.google.dagger.hilt.compiler)
-    testImplementation(libs.google.dagger.hilt.testing)
-    kspTest(libs.google.dagger.hilt.compiler)
-    androidTestImplementation(libs.google.dagger.hilt.testing)
-    kspAndroidTest(libs.google.dagger.hilt.compiler)
-    //Needed
+    implementation(libs.hilt.android)     //Dagger Hilt
+    ksp(libs.hilt.android.compiler)      //Dagger Hilt Compiler
+    //Other's
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.jakewharton.timber)
     ksp(libs.kotlin.metadata.jvm)
