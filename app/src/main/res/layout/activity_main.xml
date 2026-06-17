@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:backgroundTint="?background"
+        app:itemActiveIndicatorStyle="@style/ActiveIndicatorRed"
         app:itemIconTint="@color/nav_icon_colors"
         app:itemTextColor="@color/nav_text_colors"
         app:layout_constraintBottom_toBottomOf="parent"
