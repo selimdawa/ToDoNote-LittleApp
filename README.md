@@ -6,9 +6,14 @@
  <a href="https://kotlinlang.org"><img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-2.4.0-blue?logo=kotlin&logoColor=white"/></a>
 </p>
 
-## Images
+## Day Mode
 One | Two | Three 
 --- | --- | --- | 
-![](https://blogger.googleusercontent.com/img/a/AVvXsEiz0aKDUDFuzgCCTcqo933oLQ8N-tYk3cokgioUb-CgeHE5b5P1VyT6bNvQftiG9Q9PiCDZncFRArcRTWGbo9UGid6XimZxZTcAqfU-YXjkFdaq9iLZa1P0dVFri_VBu6C1uejY1McAYxfF3fIeuBjgeopBZjGgKjv1BHvCuKdrlt1GFpnH0I1tcEHm1A) | ![](https://blogger.googleusercontent.com/img/a/AVvXsEjUZKhaWrTMKKlzVhGP2JdDhMnCyPQ3gC7WV4wgG_Jg-8qL7EumzgkAESiJ9a1ckAPBtW0vVpLgA-eik7t8-IMEca7uOOfLYUsG_BLusnMjvN8a_7UI3JvL9lHlU_AHZeotkRcFTcVmSYWayrUDZcNnXfgTx-2nXiwHBZoB0Nx6W4o3w9WCBNAntGmzFA) | ![](https://blogger.googleusercontent.com/img/a/AVvXsEgvzL1OvV2mH6G05JW7ae7-d2gyLoOctBSc5k2un-o6eZsmoRSKdvUJgNnB-rAx8FGRgHohwGBuYRpet1ID1G6UKAf2tsh7aLKKgT8jz-9028YaMe8ZlrWVbxFr9ELIbj4mpsifN-yd583R9gkECbFseiFDleiVzJtFZhKIzVqqNRfXQBZATXxe6Z-npA) | 
+![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigaviyOzmphRyZrk8T2BvUYE95ygNGaGZ9VMhLtRPKy-yfCRJzn0IKjTkAgwR0mdJLSJbKfTN2pQQa0jK9jPHzWK3WslSMJEEjKV9piY8FpdCi_VT7RQgVnA0s89wZja_uSwsSd7JmE67huiuXJ6E8Xq1GN8IGvPRiIMVr-xmsKW7O_vXX1V6aCqs_BVM/s16000/photo_2026-06-17_05-31-12.jpg) | ![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigaviyOzmphRyZrk8T2BvUYE95ygNGaGZ9VMhLtRPKy-yfCRJzn0IKjTkAgwR0mdJLSJbKfTN2pQQa0jK9jPHzWK3WslSMJEEjKV9piY8FpdCi_VT7RQgVnA0s89wZja_uSwsSd7JmE67huiuXJ6E8Xq1GN8IGvPRiIMVr-xmsKW7O_vXX1V6aCqs_BVM/s1280/photo_2026-06-17_05-31-12.jpg) | ![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjCZjDXREOAescc5YzjbZngX2OV9IFlEt-ADMFWuETGKVHXnQhXV-q_6e1CjHqK5XTLlWYx6Kjy3T8FGK0KlkYJAyEgrakn0Px0ZaRhot5gbKyjw7RwU6NvT5P_svxFodRWWsWRCXVx7K0p1fvfkWfLpSfoOkv1ZHLoume8FjAzX8hjR5h4d79V9gWgA-E/s1280/photo_2026-06-17_05-31-13.jpg) | 
+
+## Night Mode
+One | Two | Three 
+--- | --- | --- | 
+![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgQVH5FnSpB8T0915WzZg6RfhGFCvhUr3AeGhsHRDmWY0rfC9m5pCaJ4E6BR3m6mVbcQNdhOvCg04h4wUAobr7ZtETfPf2i1p5n7lYUHqsE3t9q_GqSTro907KsC7F2YCp7C8wXpB4y0ToKzQsdQYu1iSRyyNOXIUz79ZUfXdMY6GgE_MaMMCYaURHYwOE/s1280/photo_2026-06-17_05-31-14.jpg) | ![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhR8JcfZSjHeCvCny-ptgyDLnXtsDbNgdNHFjjD6vSUpjDLl8XT3B2cWHRrWKq2ZzFZeHlO5tEi3Ejm_MFGZI07gOH3DwMJAVRW_atGYzK_ljrVkfWPVlp_LG75uojasbOcDdbURNcuEDp13exrgQEBe_0pVY0Pd4mPHfvQy6lPVOjS3f2I2sH3QsYpuoA/s1280/photo_2026-06-17_05-31-14%20(2).jpg) | ![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhQ9zgfyWd4B0ZpBuEreQURtiIN7aA1Lj0kZgsDBct43HHyGhjMS2g9jcVG04EPhbVAYy5ACkkCdEvc8g1FlGHTygI4ZsQnB_b8w4BSt_kHvueQL5Gk2pS6y9DNlP6Oz-0N8GmhH2VB7hj3lW4yYe9gxEjCli_sZ9DjtfddK0yJ-csvysmD2Hg26sWmgU4/s1280/photo_2026-06-17_05-31-14%20(3).jpg) | 
 
 - [Simple Advanced Apps - Kotlin](https://github.com/selimdawa/SimpleAdvancedAppsKotlin/)
