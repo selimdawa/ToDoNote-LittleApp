@@ -33,17 +33,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-        }
-    }
     buildFeatures {
         dataBinding = true
         viewBinding = true
-    }
-    ksp {
-        arg("room.schemaLocation", "$projectDir/schemas")
     }
 }
 
@@ -79,4 +71,8 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.jakewharton.timber)
     ksp(libs.kotlin.metadata.jvm)
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
