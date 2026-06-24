@@ -22,16 +22,19 @@ import kotlinx.coroutines.launch
 class AddEditNoteFragment : Fragment(R.layout.fragment_add_edit_note) {
 
     private val viewModel: AddEditNoteViewModel by viewModels()
+    private var _binding: FragmentAddEditNoteBinding? = null
+    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentAddEditNoteBinding.bind(view)
 
-        val binding = FragmentAddEditNoteBinding.bind(view)
         binding.apply {
             noteTitleEditText.setText(viewModel.noteTitle)
             noteContentEditText.setText(viewModel.noteContent)
             currentDateNote.isVisible = viewModel.note != null
-            currentDateNote.text = "Created:  ${viewModel.note?.createdDateFormatted}"
+            currentDateNote.text = getString(R.string.created, viewModel.note?.createdDateFormatted)
+
             noteTitleEditText.addTextChangedListener { viewModel.noteTitle = it.toString() }
             noteContentEditText.addTextChangedListener { viewModel.noteContent = it.toString() }
             noteAddEditFloatBttn.setOnClickListener { viewModel.onSaveClick() }
@@ -56,5 +59,10 @@ class AddEditNoteFragment : Fragment(R.layout.fragment_add_edit_note) {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

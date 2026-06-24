@@ -22,17 +22,19 @@ import kotlinx.coroutines.launch
 class AddEditTaskFragment : Fragment(R.layout.fragment_add_edit_task) {
 
     private val viewModel: AddEditTaskViewModel by viewModels()
+    private var _binding: FragmentAddEditTaskBinding? = null
+    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentAddEditTaskBinding.bind(view)
 
-        val binding = FragmentAddEditTaskBinding.bind(view)
         binding.apply {
             taskEditText.setText(viewModel.taskName)
             editTaskCheck.isChecked = viewModel.taskImportance
             editTaskCheck.jumpDrawablesToCurrentState()
             dateCreatedTextView.isVisible = viewModel.task != null
-            dateCreatedTextView.text = "Created: ${viewModel.task?.createdDateFormatted}"
+            dateCreatedTextView.text =  getString(R.string.created, viewModel.task?.createdDateFormatted)
 
             taskEditText.addTextChangedListener { viewModel.taskName = it.toString() }
             editTaskCheck.setOnCheckedChangeListener { _, isChecked ->
@@ -61,5 +63,10 @@ class AddEditTaskFragment : Fragment(R.layout.fragment_add_edit_task) {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

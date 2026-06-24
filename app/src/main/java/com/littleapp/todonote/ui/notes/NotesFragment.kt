@@ -32,10 +32,14 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
         defaultViewModelProviderFactory
     }
 
+    private var _binding: FragmentNotesBinding? = null
+    private val binding get() = _binding!!
     private var searchView: SearchView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentNotesBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentNotesBinding.bind(view)
+
         val notesAdapter = NotesAdapter(this)
 
         binding.apply {
@@ -48,7 +52,7 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
             floatAddButton.setOnClickListener { viewModel.onAddNewNoteClick() }
 
             setFragmentResultListener("note_add_edit_request") { _, bundle ->
-                val result = bundle.getInt("note_add_edit_result")
+                val result = bundle.getInt("note_add_edit_request")
                 viewModel.onAddEditNoteResult(result)
             }
         }
@@ -62,18 +66,16 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
                 viewModel.noteEvent.collect { event ->
                     when (event) {
                         is NotesViewModel.NotesEvent.NavigateToAddScreen -> {
-                            val action =
-                                NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
-                                    title = "New Note", Note = null
-                                )
+                            val action = NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
+                                title = "New Note", Note = null
+                            )
                             findNavController().navigate(action)
                         }
 
                         is NotesViewModel.NotesEvent.NavigateToEditNoteScreen -> {
-                            val action =
-                                NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
-                                    title = "Edit Note", Note = event.note
-                                )
+                            val action = NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
+                                title = "Edit Note", Note = event.note
+                            )
                             findNavController().navigate(action)
                         }
 
@@ -153,5 +155,6 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
         super.onDestroyView()
         searchView?.setOnQueryTextListener(null)
         searchView = null
+        _binding = null
     }
 }

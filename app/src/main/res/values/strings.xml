@@ -22,5 +22,6 @@
     <string name="msg_note_added">Note added.</string>
     <string name="msg_note_updated">Note updated.</string>
     <string name="msg_all_notes_deleted">All notes deleted.</string>
+    <string name="created">Created:  %1$s</string>
 
 </resources>

@@ -12,37 +12,33 @@ class NotesAdapter(
     private val listener: OnItemClickListener,
 ) : RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
 
-    private var differCallback =
-        object : DiffUtil.ItemCallback<Notes>() {
-            override fun areItemsTheSame(oldItem: Notes, newItem: Notes): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Notes, newItem: Notes): Boolean {
-                return oldItem == newItem
-            }
+    private val differCallback = object : DiffUtil.ItemCallback<Notes>() {
+        override fun areItemsTheSame(oldItem: Notes, newItem: Notes): Boolean {
+            return oldItem.id == newItem.id
         }
+
+        override fun areContentsTheSame(oldItem: Notes, newItem: Notes): Boolean {
+            return oldItem == newItem
+        }
+    }
 
     val differ = AsyncListDiffer(this, differCallback)
 
     inner class NotesViewHolder(private val binding: ItemNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.apply {
-                root.setOnClickListener {
-                    val position = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val note = differ.currentList[position]
-                        listener.onItemClick(note)
-                    }
-                }
 
-                deleteNoteButton.setOnClickListener {
-                    val position = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val note = differ.currentList[position]
-                        listener.onDeleteNoteClick(note)
-                    }
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(differ.currentList[position])
+                }
+            }
+
+            binding.deleteNoteButton.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onDeleteNoteClick(differ.currentList[position])
                 }
             }
         }
@@ -57,18 +53,16 @@ class NotesAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
-        val binding = ItemNoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemNoteBinding.inflate(inflater, parent, false)
         return NotesViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
-        val currentNote = differ.currentList[position]
-        holder.bind(currentNote)
+        holder.bind(differ.currentList[position])
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
+    override fun getItemCount(): Int = differ.currentList.size
 
     interface OnItemClickListener {
         fun onItemClick(note: Notes)

@@ -2,8 +2,6 @@ package com.littleapp.todonote.ui.tasks
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -19,13 +17,7 @@ class DeleteAllCompletedTasksDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
-        val binding: DialogCustomDeleteTasksBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(requireContext()),
-            R.layout.dialog_custom_delete_tasks,
-            null,
-            false
-        )
+        val binding = DialogCustomDeleteTasksBinding.inflate(layoutInflater)
 
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)

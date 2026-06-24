@@ -5,28 +5,27 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.littleapp.todonote.Unit.CLASS
 import com.littleapp.todonote.Unit.THEME
 import com.littleapp.todonote.Unit.VOID
 import com.littleapp.todonote.databinding.ActivitySplashBinding
-import com.littleapp.todonote.Unit.CLASS
 
 class SplashActivity : AppCompatActivity() {
 
-    private var binding: ActivitySplashBinding? = null
-    var context: Context = this@SplashActivity
+    private lateinit var binding: ActivitySplashBinding
+    private val context: Context = this
 
-    var time_per_second = 2
-    var time_final = time_per_millis * time_per_second
+    private val timePerSecond = 2
+    private val timeFinal = TIME_PER_MILLIS * timePerSecond
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //THEME.setThemeOfApp(context)
+        THEME.setThemeOfApp(context)
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
-        val view = binding!!.root
-        setContentView(view)
+        setContentView(binding.root)
         supportActionBar?.hide()
 
-        Handler(Looper.getMainLooper()).postDelayed({ launch() }, time_final.toLong())
+        Handler(Looper.getMainLooper()).postDelayed({ launch() }, timeFinal.toLong())
     }
 
     private fun launch() {
@@ -35,6 +34,6 @@ class SplashActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val time_per_millis = 1000
+        private const val TIME_PER_MILLIS = 1000
     }
 }

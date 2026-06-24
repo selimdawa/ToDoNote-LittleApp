@@ -17,21 +17,18 @@ class TaskAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.apply {
-                root.setOnClickListener {
-                    val position = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val task = getItem(position)
-                        listener.onItemClick(task)
-                    }
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(getItem(position))
                 }
+            }
 
-                taskCheckBox.setOnClickListener {
-                    val position = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val task = getItem(position)
-                        listener.onChecBoxClick(task, taskCheckBox.isChecked)
-                    }
+            binding.taskCheckBox.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val task = getItem(position)
+                    listener.onCheckBoxClick(task, binding.taskCheckBox.isChecked)
                 }
             }
         }
@@ -46,19 +43,19 @@ class TaskAdapter(
         }
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(task: Task)
-        fun onChecBoxClick(task: Task, isChecked: Boolean)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemTaskBinding.inflate(inflater, parent, false)
         return TaskViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val currentIem = getItem(position)
-        holder.bind(currentIem)
+        holder.bind(getItem(position))
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(task: Task)
+        fun onCheckBoxClick(task: Task, isChecked: Boolean)
     }
 
     class DiffCallBack : DiffUtil.ItemCallback<Task>() {
