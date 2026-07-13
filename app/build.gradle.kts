@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.ksp)
-    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.navigation.safeargs.kotlin)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -50,22 +50,22 @@ dependencies {
     //Layout
     implementation(libs.androidx.constraintlayout)
     implementation(libs.material)
-    //Lifecycle + ViewModel & LiveData
+    //Lifecycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.common.java8)
-    //Navigation Component
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    //Room
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     //Coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    //Room
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    //Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     //Dagger - Hilt
-    implementation(libs.hilt.android)     //Dagger Hilt
-    ksp(libs.hilt.android.compiler)      //Dagger Hilt Compiler
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.navigation.fragment)
     //Other's
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.jakewharton.timber)
