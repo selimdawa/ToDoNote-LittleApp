@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.MainApp" parent="Theme.Material3.DayNight">
+    <style name="Base.Theme.MainApp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/dark</item>
         <item name="android:windowLightStatusBar">false</item>
         <!-- Customize your theme here. -->
@@ -18,10 +18,9 @@
         <item name="toolbarStyle">@style/Widget.MyApp.Toolbar</item>
         <item name="actionBarTheme">@style/ThemeOverlay.MyApp.Toolbar</item>
         <item name="drawerArrowStyle">@style/Widget.MyApp.DrawerArrowStyle</item>
-        <!--
-           <item name="android:navigationBarColor">@color/basic_night</item>
-           <item name="android:windowLightNavigationBar">true</item> -->
     </style>
+
+    <style name="Theme.MainApp" parent="Base.Theme.MainApp" />
 
     <!-- Define the checkbox specific theme override -->
     <style name="Widget.App.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
