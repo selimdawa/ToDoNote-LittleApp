@@ -6,10 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.littleapp.todonote.Activity.ADD_RESULT_OK
-import com.littleapp.todonote.Activity.EDIT_RESULT_OK
+import com.littleapp.todonote.activity.ADD_RESULT_OK
+import com.littleapp.todonote.activity.EDIT_RESULT_OK
 import com.littleapp.todonote.R
-import com.littleapp.todonote.Unit.DATA
 import com.littleapp.todonote.data.PreferencesManager
 import com.littleapp.todonote.data.SortOrder
 import com.littleapp.todonote.data.Task
@@ -27,13 +26,13 @@ import javax.inject.Inject
 @HiltViewModel
 class TasksViewModel @Inject constructor(
     private val taskDao: TaskDao,
-    private val preferecesManager: PreferencesManager,
-    private val state: SavedStateHandle,
+    private val preferencesManager: PreferencesManager,
+    state: SavedStateHandle,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
-    val searchQuery = state.getLiveData("searchQuery", DATA.EMPTY)
-    val preferencesFlow = preferecesManager.preferencesFlow
+    val searchQuery = state.getLiveData("searchQuery", "")
+    val preferencesFlow = preferencesManager.preferencesFlow
 
     private val taskEventChannel = Channel<TasksEvent>()
     val taskEvent = taskEventChannel.receiveAsFlow()
@@ -48,11 +47,11 @@ class TasksViewModel @Inject constructor(
     }
 
     fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {
-        preferecesManager.updateSortOrder(sortOrder)
+        preferencesManager.updateSortOrder(sortOrder)
     }
 
     fun onHideCompletedClick(hideCompleted: Boolean) = viewModelScope.launch {
-        preferecesManager.updateHideCompleted(hideCompleted)
+        preferencesManager.updateHideCompleted(hideCompleted)
     }
 
     val tasks = tasksFlow.asLiveData()

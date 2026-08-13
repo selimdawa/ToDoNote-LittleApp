@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.littleapp.todonote.R
 import com.littleapp.todonote.databinding.FragmentAddEditTaskBinding
-import com.littleapp.todonote.util.exhaustive
+import com.littleapp.todonote.utils.exhaustive
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

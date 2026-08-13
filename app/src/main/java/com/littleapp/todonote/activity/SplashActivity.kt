@@ -1,13 +1,12 @@
-package com.littleapp.todonote.Activity
+package com.littleapp.todonote.activity
 
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.littleapp.todonote.Unit.CLASS
-import com.littleapp.todonote.Unit.THEME
-import com.littleapp.todonote.Unit.VOID
+import com.littleapp.todonote.utils.THEME
+import com.littleapp.todonote.utils.launchActivity
 import com.littleapp.todonote.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
@@ -29,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun launch() {
-        VOID.Intent1(context, CLASS.MAIN)
+        launchActivity<MainActivity>()
         finish()
     }
 

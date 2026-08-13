@@ -3,8 +3,8 @@ package com.littleapp.todonote.ui.tasks.edit
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.littleapp.todonote.Activity.ADD_RESULT_OK
-import com.littleapp.todonote.Activity.EDIT_RESULT_OK
+import com.littleapp.todonote.activity.ADD_RESULT_OK
+import com.littleapp.todonote.activity.EDIT_RESULT_OK
 import com.littleapp.todonote.data.Task
 import com.littleapp.todonote.data.TaskDao
 import dagger.hilt.android.lifecycle.HiltViewModel

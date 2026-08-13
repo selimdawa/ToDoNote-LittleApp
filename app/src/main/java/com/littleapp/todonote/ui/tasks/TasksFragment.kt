@@ -22,8 +22,8 @@ import com.littleapp.todonote.R
 import com.littleapp.todonote.data.SortOrder
 import com.littleapp.todonote.data.Task
 import com.littleapp.todonote.databinding.FragmentTasksBinding
-import com.littleapp.todonote.util.exhaustive
-import com.littleapp.todonote.util.onQueryTextChanged
+import com.littleapp.todonote.utils.exhaustive
+import com.littleapp.todonote.utils.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch

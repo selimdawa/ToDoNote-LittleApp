@@ -6,16 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.littleapp.todonote.Activity.ADD_RESULT_OK
-import com.littleapp.todonote.Activity.EDIT_RESULT_OK
 import com.littleapp.todonote.R
-import com.littleapp.todonote.Unit.DATA
+import com.littleapp.todonote.activity.ADD_RESULT_OK
+import com.littleapp.todonote.activity.EDIT_RESULT_OK
 import com.littleapp.todonote.data.NoteDao
 import com.littleapp.todonote.data.Notes
 import com.littleapp.todonote.data.PreferencesManager
 import com.littleapp.todonote.data.SortOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
@@ -23,16 +23,16 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class NotesViewModel @Inject constructor(
     private val noteDao: NoteDao,
     private val preferencesManager: PreferencesManager,
-    private val state: SavedStateHandle,
+    state: SavedStateHandle,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
-    val searchQuery = state.getLiveData("noteSearchQuery", DATA.EMPTY)
+    val searchQuery = state.getLiveData("noteSearchQuery", "")
 
     private val noteEventChannel = Channel<NotesEvent>()
     val noteEvent = noteEventChannel.receiveAsFlow()
@@ -40,8 +40,7 @@ class NotesViewModel @Inject constructor(
     val preferencesFlow = preferencesManager.notesPreferencesFlow
 
     private val noteFlow = combine(
-        searchQuery.asFlow(),
-        preferencesFlow
+        searchQuery.asFlow(), preferencesFlow
     ) { query, filterPreferences ->
         Pair(query, filterPreferences)
     }.flatMapLatest { (query, filterPreferences) ->

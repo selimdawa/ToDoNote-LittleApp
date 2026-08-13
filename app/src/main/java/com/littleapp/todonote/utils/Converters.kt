@@ -1,4 +1,4 @@
-package com.littleapp.todonote.util
+package com.littleapp.todonote.utils
 
 import androidx.room.TypeConverter
 import java.time.LocalDateTime

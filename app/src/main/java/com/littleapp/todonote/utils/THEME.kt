@@ -1,4 +1,4 @@
-package com.littleapp.todonote.Unit
+package com.littleapp.todonote.utils
 
 import android.content.Context
 import androidx.preference.PreferenceManager

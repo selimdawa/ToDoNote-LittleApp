@@ -3,6 +3,8 @@
     <style name="Base.Theme.MainApp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/dark</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/basic_night</item>
@@ -18,40 +20,9 @@
 
     <style name="Theme.MainApp" parent="Base.Theme.MainApp" />
 
-    <style name="Base.ToDoTheme.MainApp" parent="Base.Theme.MainApp">
-        <item name="toolbarStyle">@style/Widget.MyApp.Toolbar</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.MyApp.Toolbar</item>
-        <item name="drawerArrowStyle">@style/Widget.MyApp.DrawerArrowStyle</item>
-    </style>
-
-    <style name="ToDoTheme.MainApp" parent="Base.ToDoTheme.MainApp" />
-
     <!-- Define the checkbox specific theme override -->
     <style name="Widget.App.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
-        <!-- Color when checked -->
-        <item name="colorPrimary">@color/white</item>
+        <!-- This will tint the checkbox to white -->
+        <item name="buttonTint">@color/white</item>
     </style>
-
-    <style name="Widget.MyApp.Toolbar" parent="Widget.Material3.Toolbar">
-        <item name="android:background">@color/basic_night</item>
-    </style>
-
-    <style name="ThemeOverlay.MyApp.Toolbar" parent="ThemeOverlay.Material3.ActionBar">
-        <item name="titleTextColor">@color/dark</item>
-        <item name="colorOnSurface">@color/dark</item>
-        <item name="colorOnSurfaceVariant">@color/dark</item>
-        <item name="android:textColorPrimary">@color/dark</item>
-        <item name="colorControlNormal">@color/dark</item>
-        <item name="editTextColor">@color/dark</item>
-        <item name="android:textColorHint">@color/dark</item>
-    </style>
-
-    <style name="Widget.MyApp.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/dark</item>
-    </style>
-
-    <style name="ActiveIndicatorRed" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/dark</item>
-    </style>
-
 </resources>

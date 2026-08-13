@@ -2,7 +2,11 @@ package com.littleapp.todonote.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
@@ -23,7 +27,6 @@ data class FilterPreferencesNotes(val sortOrder: SortOrder)
 class PreferencesManager @Inject constructor(@ApplicationContext context: Context) {
 
     private val dataStore: DataStore<Preferences> = context.dataStore
-    private val dataStoreNotes: DataStore<Preferences> = context.dataStore
 
     val preferencesFlow = dataStore.data.catch { exception ->
         if (exception is IOException) {
@@ -41,7 +44,7 @@ class PreferencesManager @Inject constructor(@ApplicationContext context: Contex
         FilterPreferences(sortOrder, hideCompleted)
     }
 
-    val notesPreferencesFlow = dataStoreNotes.data.catch { exception ->
+    val notesPreferencesFlow = dataStore.data.catch { exception ->
         if (exception is IOException) {
             Timber.e(exception, "Error reading preferences")
             emit(emptyPreferences())

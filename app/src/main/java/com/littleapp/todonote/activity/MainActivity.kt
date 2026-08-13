@@ -1,4 +1,4 @@
-package com.littleapp.todonote.Activity
+package com.littleapp.todonote.activity
 
 import android.app.Activity
 import android.content.Context
@@ -10,7 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.littleapp.todonote.R
-import com.littleapp.todonote.Unit.THEME
+import com.littleapp.todonote.utils.THEME
 import com.littleapp.todonote.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

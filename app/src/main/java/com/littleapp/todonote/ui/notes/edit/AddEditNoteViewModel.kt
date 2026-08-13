@@ -3,9 +3,8 @@ package com.littleapp.todonote.ui.notes.edit
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.littleapp.todonote.Unit.DATA
-import com.littleapp.todonote.Activity.ADD_RESULT_OK
-import com.littleapp.todonote.Activity.EDIT_RESULT_OK
+import com.littleapp.todonote.activity.ADD_RESULT_OK
+import com.littleapp.todonote.activity.EDIT_RESULT_OK
 import com.littleapp.todonote.data.NoteDao
 import com.littleapp.todonote.data.Notes
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,13 +22,13 @@ class AddEditNoteViewModel @Inject constructor(
     val addEditNoteEvent = addEditNoteEventChannel.receiveAsFlow()
 
     val note = state.get<Notes>("Note")
-    var noteTitle = state.get<String>("noteTitle") ?: note?.title ?: DATA.EMPTY
+    var noteTitle = state.get<String>("noteTitle") ?: note?.title ?: ""
         set(value) {
             field = value
             state["noteTitle"] = value
         }
 
-    var noteContent = state.get<String>("noteContent") ?: note?.content ?: DATA.EMPTY
+    var noteContent = state.get<String>("noteContent") ?: note?.content ?: ""
         set(value) {
             field = value
             state["noteContent"] = value
@@ -37,7 +36,7 @@ class AddEditNoteViewModel @Inject constructor(
 
     fun onSaveClick() {
         if (noteTitle.isBlank()) {
-            ShowInvalidInputMessage("Title cannot be empty")
+            showInvalidInputMessage("Title cannot be empty")
             return
         }
 
@@ -51,7 +50,7 @@ class AddEditNoteViewModel @Inject constructor(
     }
 
 
-    fun ShowInvalidInputMessage(text: String) = viewModelScope.launch {
+    fun showInvalidInputMessage(text: String) = viewModelScope.launch {
         addEditNoteEventChannel.send(AddEditNoteEvent.ShowInvalidInputMessage(text))
     }
 

@@ -13,7 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.littleapp.todonote.R
 import com.littleapp.todonote.databinding.FragmentAddEditNoteBinding
-import com.littleapp.todonote.util.exhaustive
+import com.littleapp.todonote.utils.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

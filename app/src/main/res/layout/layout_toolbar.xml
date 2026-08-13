@@ -2,12 +2,11 @@
 <com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
-    style="@style/Widget.MyApp.Toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimaryDark"
+    android:background="?attr/colorOnBackground"
     app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
-    app:titleTextColor="?attr/colorOnBackground">
+    app:titleTextColor="?colorError">
 
     <TextView
         android:id="@+id/toolbar_title"
