@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="25sp"
         android:backgroundTint="?colorOnBackground"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/todo"
         android:foreground="@drawable/float_bg"
         android:outlineSpotShadowColor="?colorOnBackground"
         android:tint="@null"

@@ -127,12 +127,12 @@ class NotesFragment : Fragment(R.layout.fragment_notes), NotesAdapter.OnItemClic
                         true
                     }
 
-                    R.id.action_sort_byname_notes -> {
+                    R.id.action_sort_by_name_notes -> {
                         viewModel.onSortOrderSelected(SortOrder.BY_NAME)
                         true
                     }
 
-                    R.id.action_sort_bydatecreated_notes -> {
+                    R.id.action_sort_by_date_created_notes -> {
                         viewModel.onSortOrderSelected(SortOrder.BY_DATE)
                         true
                     }

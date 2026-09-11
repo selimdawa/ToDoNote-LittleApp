@@ -1,79 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorOnBackground">
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="15dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonEditTask"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/hint_task"
+        android:textColor="?colorError"
+        android:textColorHint="?colorError"
+        app:boxStrokeColor="@color/input_border_color"
+        app:boxStrokeWidth="2sp"
+        app:boxStrokeWidthFocused="2dp"
+        app:hintTextColor="?colorError"
+        app:layout_constraintTop_toTopOf="parent"
+        app:suffixTextColor="?colorError">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/task_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="5dp"
-            android:hint="Task"
-            android:textColor="?colorError"
-            android:textColorHint="?colorError"
-            app:boxStrokeColor="@color/input_border_color"
-            app:boxStrokeWidth="2sp"
-            app:boxStrokeWidthFocused="2dp"
-            app:hintTextColor="?colorError"
-            app:layout_constraintTop_toTopOf="parent"
-            app:suffixTextColor="?colorError"
-            tools:layout_editor_absoluteX="9dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/task_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/asapcondensed"
-                android:textColor="?colorError"
-                android:textColorHint="?colorError" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/editTaskCheck"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:theme="@style/Widget.App.CheckBox" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/asapcondensed"
-                android:text="Important Task"
-                android:textColor="?colorError"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/dateCreatedTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
             android:fontFamily="@font/asapcondensed"
-            android:text="Date created: "
             android:textColor="?colorError"
-            android:textSize="15dp" />
+            android:textColorHint="?colorError" />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/editTaskCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:checked="true"
+        android:theme="@style/Widget.App.CheckBox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <TextView
+        android:id="@+id/importantLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/asapcondensed"
+        android:text="@string/label_important_task"
+        android:textColor="?colorError"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/editTaskCheck"
+        app:layout_constraintStart_toEndOf="@+id/editTaskCheck"
+        app:layout_constraintTop_toTopOf="@+id/editTaskCheck" />
+
+    <TextView
+        android:id="@+id/dateCreatedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:fontFamily="@font/asapcondensed"
+        android:text="@string/label_date_created"
+        android:textColor="?colorError"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTaskCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButtonEditTask"
@@ -81,8 +73,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:backgroundTint="?colorOnBackground"
+        android:contentDescription="@string/content_description_save"
         android:foreground="@drawable/check_float_bg"
-        android:outlineSpotShadowColor="?colorOnBackground"
         android:src="@drawable/ic_baseline_check_24"
         android:tint="@null"
         app:backgroundTint="@null"

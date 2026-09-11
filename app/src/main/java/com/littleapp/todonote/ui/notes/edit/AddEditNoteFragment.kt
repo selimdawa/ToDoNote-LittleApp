@@ -37,7 +37,7 @@ class AddEditNoteFragment : Fragment(R.layout.fragment_add_edit_note) {
 
             noteTitleEditText.addTextChangedListener { viewModel.noteTitle = it.toString() }
             noteContentEditText.addTextChangedListener { viewModel.noteContent = it.toString() }
-            noteAddEditFloatBttn.setOnClickListener { viewModel.onSaveClick() }
+            noteAddEditFloatButton.setOnClickListener { viewModel.onSaveClick() }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

@@ -23,5 +23,26 @@
     <string name="msg_note_updated">Note updated.</string>
     <string name="msg_all_notes_deleted">All notes deleted.</string>
     <string name="created">Created:  %1$s</string>
-
+    //Menu
+    <string name="menu_search">Search</string>
+    <string name="menu_sort">Sort</string>
+    <string name="menu_sort_by_name">Sort by name</string>
+    <string name="menu_sort_by_date_created">Sort by date created</string>
+    <string name="menu_more">More</string>
+    <string name="menu_hide_completed">Hide completed</string>
+    <string name="menu_delete_completed_tasks">Delete completed tasks</string>
+    <string name="menu_delete_all_notes">Delete All Notes</string>
+    //Hints and Labels
+    <string name="hint_task">Task</string>
+    <string name="label_important_task">Important Task</string>
+    <string name="label_date_created">Date created: </string>
+    <string name="hint_content">Content</string>
+    <string name="hint_title">Title</string>
+    <string name="menu_todo">TO-DO</string>
+    <string name="menu_notes">Notes</string>
+    <string name="todo">TODO</string>
+    <string name="content_description_save">Save</string>
+    <string name="content_description_priority">Priority</string>
+    <string name="content_description_date">Date</string>
+    <string name="content_description_delete">Delete</string>
 </resources>

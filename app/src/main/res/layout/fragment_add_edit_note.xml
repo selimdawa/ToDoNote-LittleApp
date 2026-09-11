@@ -11,9 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="10dp"
-        android:hint="Content"
-        android:lines="15"
-        android:textAlignment="textStart"
+        android:hint="@string/hint_content"
         android:textColor="?colorError"
         android:textColorHint="?colorError"
         app:boxStrokeColor="@color/input_border_color"
@@ -31,7 +29,6 @@
             android:fontFamily="@font/asapcondensed"
             android:gravity="start"
             android:maxLines="15"
-            android:textAlignment="textStart"
             android:textColor="?colorError"
             android:textColorHint="?colorError" />
 
@@ -43,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="5dp"
-        android:hint="Title"
+        android:hint="@string/hint_title"
         android:textColor="?colorError"
         android:textColorHint="?colorError"
         app:boxStrokeColor="@color/input_border_color"
@@ -64,39 +61,32 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/ic_baseline_date_range_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
-        app:tint="?colorError" />
-
     <TextView
         android:id="@+id/currentDateNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
+        android:drawablePadding="5dp"
         android:fontFamily="@font/asapcondensed"
-        android:gravity="start"
+        android:gravity="center_vertical"
         android:textColor="?colorError"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:drawableStartCompat="@drawable/ic_baseline_date_range_24"
+        app:drawableTint="?colorError"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+        tools:text="Current Date" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/noteAddEditFloatBttn"
+        android:id="@+id/noteAddEditFloatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:backgroundTint="?colorOnBackground"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/content_description_save"
         android:foreground="@drawable/check_float_bg"
-        android:outlineSpotShadowColor="?colorOnBackground"
+        android:src="@drawable/ic_baseline_check_24"
         android:tint="@null"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
