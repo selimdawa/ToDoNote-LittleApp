@@ -39,7 +39,7 @@
 
         <menu>
             <item
-                android:id="@+id/action_hide_cpmpleted_items"
+                android:id="@+id/action_hide_completed_items"
                 android:checkable="true"
                 android:title="Hide completed"
                 app:showAsAction="never" />

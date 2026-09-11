@@ -25,7 +25,6 @@ import com.littleapp.todonote.databinding.FragmentTasksBinding
 import com.littleapp.todonote.utils.exhaustive
 import com.littleapp.todonote.utils.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -64,8 +63,11 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                 ): Boolean = false
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val task = taskAdapter.currentList[viewHolder.bindingAdapterPosition]
-                    viewModel.onTaskSwiped(task)
+                    val position = viewHolder.bindingAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val task = taskAdapter.currentList[position]
+                        viewModel.onTaskSwiped(task)
+                    }
                 }
             }).attachToRecyclerView(tasksRec)
         }
@@ -77,6 +79,14 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
         setFragmentResultListener("add_edit_request") { _, bundle ->
             val result = bundle.getInt("add_edit_result")
             viewModel.onAddEditResult(result)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.preferencesFlow.collect {
+                    requireActivity().invalidateMenu()
+                }
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -136,11 +146,16 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                     searchItem.expandActionView()
                     currentSearchView.setQuery(pendingQuery, false)
                 }
+            }
 
+            override fun onPrepareMenu(menu: Menu) {
+                super.onPrepareMenu(menu)
                 viewLifecycleOwner.lifecycleScope.launch {
                     viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        menu.findItem(R.id.action_hide_cpmpleted_items).isChecked =
-                            viewModel.preferencesFlow.first().hideCompleted
+                        viewModel.preferencesFlow.collect { preferences ->
+                            menu.findItem(R.id.action_hide_completed_items)?.isChecked =
+                                preferences.hideCompleted
+                        }
                     }
                 }
             }
@@ -157,7 +172,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                         true
                     }
 
-                    R.id.action_hide_cpmpleted_items -> {
+                    R.id.action_hide_completed_items -> {
                         menuItem.isChecked = !menuItem.isChecked
                         viewModel.onHideCompletedClick(menuItem.isChecked)
                         true
